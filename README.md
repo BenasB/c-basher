@@ -72,4 +72,12 @@ THIS EXACT LINE WILL BE REMOVED
 
 ## Example
 
-If you clone this repository, you can run the example by executing `tests/c-basher.sh example.c`. You should get `6 PASSED` tests and `1 FAILED` test. See [`tests/ignore.txt`](./tests/ignore.txt) to ignore unecessary printed data.
+If you clone this repository, you can run the [example](./example.c) by executing `tests/c-basher.sh example.c`. You should get:
+
+```
+Total tests: 7
+Passed: 6
+Failed: 1
+```
+
+See [`tests/ignore.txt`](./tests/ignore.txt) about how to ignore unecessary printed data from the example.
