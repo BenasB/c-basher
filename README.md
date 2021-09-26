@@ -18,20 +18,23 @@ Recieved:
 Total tests: 3
 Passed: 2
 Failed: 1
+
+Some tests failed
 ```
 
 Running `c-basher` will compile the program and place it in `bin/` as `output`. If there's no `bin/` directory, it will be created automatically.
 
 ## Prerequisites
 
-* Mandatory `cases.txt` file that describes your test cases
-* Optional `ignore.txt` file that describes strings to be ignored from the received output of the program.
+- Mandatory `cases.txt` file that describes your test cases
+- Optional `ignore.txt` file that describes strings to be ignored from the received output of the program.
 
 These files should be located in the `tests/` directory.
 
 ### Dependencies
-* gcc
-* sed
+
+- gcc
+- sed
 
 The example below contains 3 test cases where every one of them have an input (it can span 1 or more lines) and an expected output (it can also span 1 or more lines)
 
@@ -78,6 +81,8 @@ If you clone this repository, you can run the [example](./example.c) by executin
 Total tests: 7
 Passed: 6
 Failed: 1
+
+Some tests failed
 ```
 
 See [`tests/ignore.txt`](./tests/ignore.txt) about how to ignore unecessary printed data from the example.
