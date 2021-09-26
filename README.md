@@ -29,7 +29,7 @@ Running `c-basher` will compile the program and place it in `bin/` as `output`. 
 - Mandatory `cases.txt` file that describes your test cases
 - Optional `ignore.txt` file that describes strings to be ignored from the received output of the program.
 
-These files should be located in the `tests/` directory.
+These files should be located in the `tests/` directory. If you don't want to use `tests/cases.txt` file, you can specify a case file path with the `-c` option when calling `c-basher.sh` (e. g. `tests/c-basher.sh example.c -c foo/bar/my-case-file.txt`, this path is relative to the **`tests/`** directory).
 
 ### Dependencies
 
