@@ -81,3 +81,5 @@ Failed: 1
 ```
 
 See [`tests/ignore.txt`](./tests/ignore.txt) about how to ignore unecessary printed data from the example.
+
+Read more about the development process [here](https://bx2.tech/software/unit-testing-c-with-bash).
