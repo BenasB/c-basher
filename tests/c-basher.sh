@@ -12,22 +12,42 @@ NC='\033[0m'
 
 project_root=$(dirname $(dirname $(realpath $0 )))
 output_dir="bin"
+tests_dir="tests"
 output_file="output"
+cases_file="cases.txt"
+ignore_file="ignore.txt"
+
 echo "Project root: $project_root"
 
-[ "$#" -ge 1 ] || die "Error: please specify the main file name (relative to project root)"
+[ "$#" -ge 1 ] || die "Error: please specify the source file name (relative to project root)"
 
 if ! [ -f "$1" ]; then
-    die "Error: file "$1" does not exist."
+    die "Error: source file '$1' does not exist."
 fi
 
-if ! [ -f "$project_root/tests/cases.txt" ]; then
-    die "Error: cases.txt does not exist, please create it."
+# Get optional arguments
+OPTIND=2 # Skip the first argument (since its not optional)
+while getopts ":c:" opt; do
+    case $opt in
+        c) cases_file="$OPTARG"
+        ;;
+        \?) die "Invalid option -$OPTARG"
+        ;;
+    esac
+
+    case $OPTARG in
+        -*) die "Option $opt needs a valid argument"
+        ;;
+    esac
+done
+
+if ! [ -f "$project_root/$tests_dir/$cases_file" ]; then
+    die "Error: case file '$cases_file' does not exist in '$tests_dir/' directory."
 fi
 
 ignore=1
-if ! [ -f "$project_root/tests/ignore.txt" ]; then
-    echo -e "Warning: ignore.txt is missing, proceeding without it.\n"
+if ! [ -f "$project_root/$tests_dir/$ignore_file" ]; then
+    echo -e "Warning: ignore file '$ignore_file' is missing, proceeding without it.\n"
     ignore=0
 fi
 
@@ -71,7 +91,7 @@ while read test_name || [ -n "$test_name" ]; do
     if [ $ignore = 1 ] ; then
         while read ignore_line || [ -n "$ignore_line" ]; do
             received_data=${received_data/$ignore_line/}
-        done < $project_root/tests/ignore.txt
+        done < $project_root/$tests_dir/$ignore_file
     fi
 
     # Remove newlines
@@ -88,7 +108,7 @@ while read test_name || [ -n "$test_name" ]; do
         echo -e "Recieved:\n$received_data"
     fi
 
-done < $project_root/tests/cases.txt
+done < $project_root/$tests_dir/$cases_file
 
 echo -e "\nTotal tests: $test_count\nPassed: ${GREEN}$passed_count${NC}\nFailed: ${RED}$failed_count${NC}"
 
