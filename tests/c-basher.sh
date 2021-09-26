@@ -2,7 +2,7 @@
 # c-basher by Benas Budrys 2021
 
 die () {
-    echo >&2 $'\n'"$@"
+    echo -e $'\n'"$@"
     exit 1
 }
 
@@ -91,3 +91,9 @@ while read test_name || [ -n "$test_name" ]; do
 done < $project_root/tests/cases.txt
 
 echo -e "\nTotal tests: $test_count\nPassed: ${GREEN}$passed_count${NC}\nFailed: ${RED}$failed_count${NC}"
+
+if [ "$failed_count" -ne 0 ] ; then
+    die "Some tests ${RED}failed${NC}"
+else
+    echo -e "\nAll tests ${GREEN}passed${NC}"
+fi
