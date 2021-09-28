@@ -17,6 +17,8 @@ output_file="output"
 cases_file="cases.txt"
 ignore_file="ignore.txt"
 
+task="gcc $project_root/$1 -o $project_root/$output_dir/$output_file"
+
 echo "Project root: $project_root"
 
 [ "$#" -ge 1 ] || die "Error: please specify the source file name (relative to project root)"
@@ -27,9 +29,11 @@ fi
 
 # Get optional arguments
 OPTIND=2 # Skip the first argument (since its not optional)
-while getopts ":c:" opt; do
+while getopts ":c:t:" opt; do
     case $opt in
         c) cases_file="$OPTARG"
+        ;;
+        t) task="$OPTARG"
         ;;
         \?) die "Invalid option -$OPTARG"
         ;;
@@ -53,16 +57,26 @@ fi
 
 if ! [ -d "$project_root/$output_dir" ]; then
     echo -e "Warning: $output_dir/ folder is missing in project root, creating it\n"
-    mkdir $project_root/$output_dir
+else
+    echo -e "Cleaning: $output_dir/\n"
+    rm -rf $project_root/$output_dir
 fi
 
+mkdir $project_root/$output_dir
+
 echo "Compiling"
-gcc $project_root/$1 -o $project_root/$output_dir/$output_file
+$task
 if [ "$?" -ne 0 ]; then 
     die "Error: compilation failed, tests will not run"
 else
-    echo -e "Done Compiling\n\nExecuting\n"
+    echo -e "Done Compiling"
 fi
+
+if ! [ -f "$project_root/$output_dir/$output_file" ]; then
+    die "Error: $output_file was not found in $output_dir/. Maybe compilation did not generate it?"
+fi
+
+echo -e "\nExecuting\n"
 
 test_count=0
 passed_count=0
