@@ -73,6 +73,13 @@ Removed
 THIS EXACT LINE WILL BE REMOVED
 ```
 
+## Options
+
+| Option | Argument (Example) | Explanation                                                                                                                                                                                                                                                 |
+| ------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-c`   | path/to/file.txt   | You can specify a different file to be used instead of the default `cases.txt` file                                                                                                                                                                         |
+| `-t`   | "make output"      | You can specify a different compilation task to be carried out instead of the default `gcc $project_root/$1 -o $project_root/$output_dir/$output_file` (for example if you're using a Makefile, just be sure that it generates the `bin/output` executable) |
+
 ## Example
 
 If you clone this repository, you can run the [example](./example.c) by executing `tests/c-basher.sh example.c`. You should get:
